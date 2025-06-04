@@ -12,7 +12,8 @@ class Log extends Model
     protected $fillable = [
         'title',
         'content',
-        'status'
+        'status',
+        'created_by'
     ];
 
     public function user() {

@@ -1,3 +1,7 @@
+@php
+    $logStatuses = ['To do', 'In Progress', 'Done'];
+@endphp
+
 <x-layout>
     <h1>
         Create New Log
@@ -26,24 +30,32 @@
             id="content"
             name="content"
             required
-        ></textarea>
+        >
+            {{ old('content') }}
+        </textarea>
 
         <!-- select a status -->
         <label for="status">Status:</label>
         <select id="status" name="status">
-            <option value="" disabled selected>Select status</option>
-            <option value="To do" selected>To Do</option>
-            <option value="In Progress" selected>In Progress</option>
-            <option value="Done" selected>Done</option>
+            <option value="" disabled>Select status</option>
+            @foreach ($logStatuses as $status)
+                <option value="{{ $status }}" {{ $status == old('status') ? 'selected' : '' }}>{{ $status }}</option>
+            @endforeach
         </select>
 
          <!-- Hidden field for created_by -->
-        <input type="hidden" name="created_by" value=1> <!-- Hard-coded user id -->
+        <input type="hidden" name="created_by" id="created_by" value=1> <!-- Hard-coded user id -->
 
         <button type="submit" class="btn mt-4">Create Log</button>
 
         <!-- validation errors -->
-
+        @if($errors->any())
+            <ul class="px-4 py-2 bg-red-100">
+                @foreach ($errors->all() as $error)
+                    <li class="my-2 text-red-500">{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
     </form>
 
 </x-layout>

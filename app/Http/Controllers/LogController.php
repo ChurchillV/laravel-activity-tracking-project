@@ -48,10 +48,12 @@ class LogController extends Controller
 
          $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string|max:300',
+            'content' => 'required|string|max:300|min:10',
             'status' => 'required|string',
             'created_by' => 'required|integer'
          ]);
+
+         $validated['created_by'] = 1;
 
          Log::create($validated);
 

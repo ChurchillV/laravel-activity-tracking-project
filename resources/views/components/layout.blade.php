@@ -16,7 +16,7 @@
     </head>
 
     <body>
-        @if(session('success'))
+        {{-- @if(session('success'))
             <div id="flash" class="p-4 text-center bg-green-50 text-green-500 font-bold">
                 {{ session('success')}}
             </div>
@@ -30,12 +30,13 @@
                 }, 3000);
             </script>
 
-        @endif
+        @endif --}}
+        <x-toast />
 
         <header>
             <nav>
                 <h1 class="ubuntu-bold">Log Project</h1>
-                
+
                 @guest
                     <a href="{{ route('show.login') }}" class="btn">Login</a>
                     <a href="{{ route('show.register') }}" class="btn">Register</a>

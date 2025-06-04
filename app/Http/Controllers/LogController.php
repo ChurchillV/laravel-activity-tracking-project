@@ -59,4 +59,16 @@ class LogController extends Controller
 
          return redirect()->route('logs.index');
     }
+
+    public function destroy($id) {
+        /**
+         * @route -> /logs/{id}
+         * @desc -> delete a log
+         */
+
+        $log = Log::findOrFail($id);
+        $log->delete();
+
+        return redirect()->route('logs.index');
+    }
 }

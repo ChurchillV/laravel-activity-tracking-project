@@ -14,7 +14,7 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 require __DIR__.'/../vendor/autoload.php';
 
 // 🟢 Increase memory limit
-ini_set('memory_limit', '256M');
+ini_set('memory_limit', '512M');
 
 // Bootstrap Laravel and handle the request...
 /** @var Application $app */

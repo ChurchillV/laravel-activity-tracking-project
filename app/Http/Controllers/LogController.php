@@ -18,13 +18,11 @@ class LogController extends Controller
         return view('logs.index', ["logs" => $logs]);
     }
 
-    public function show($id) {
+    public function show(Log $log) {
         /**
          * @route -> /logs/{id}
          * @desc -> returns log by ID
          */
-
-         $log = Log::findOrFail($id);
 
          return view('logs.show', ["log" => $log]);
     }
@@ -60,13 +58,12 @@ class LogController extends Controller
          return redirect()->route('logs.index')->with('success', 'Log created successfully');
     }
 
-    public function destroy($id) {
+    public function destroy(Log $log) {
         /**
          * @route -> /logs/{id}
          * @desc -> delete a log
          */
 
-        $log = Log::findOrFail($id);
         $log->delete();
 
         return redirect()->route('logs.index')->with('success', 'Log deleted successfully');

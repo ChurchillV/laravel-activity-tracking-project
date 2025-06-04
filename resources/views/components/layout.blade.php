@@ -15,6 +15,21 @@
     </head>
 
     <body>
+        @if(session('success'))
+            <div id="flash" class="p-4 text-center bg-green-50 text-green-500 font-bold">
+                {{ session('success')}}
+            </div>
+
+            <script>
+                setTimeout(function() {
+                    const flash = document.getElementById('flash');
+                    if (flash) {
+                        flash.style.display = 'none';
+                    }
+                }, 3000);
+            </script>
+
+        @endif
 
         <header>
             <nav>

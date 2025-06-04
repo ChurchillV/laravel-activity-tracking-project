@@ -57,7 +57,7 @@ class LogController extends Controller
 
          Log::create($validated);
 
-         return redirect()->route('logs.index');
+         return redirect()->route('logs.index')->with('success', 'Log created successfully');
     }
 
     public function destroy($id) {
@@ -69,6 +69,6 @@ class LogController extends Controller
         $log = Log::findOrFail($id);
         $log->delete();
 
-        return redirect()->route('logs.index');
+        return redirect()->route('logs.index')->with('success', 'Log deleted successfully');
     }
 }

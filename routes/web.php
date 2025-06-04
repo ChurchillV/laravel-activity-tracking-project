@@ -8,14 +8,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register/', [AuthController::class, 'showRegister'])->name('show.register');
-Route::get('/login/', [AuthController::class, 'showLogin'])->name('show.login');
-Route::post('/register/', [AuthController::class, 'register'])->name('register');
-Route::post('/login/', [AuthController::class, 'login'])->name('login');
 Route::post('/logout/', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/logs/', [LogController::class, 'index'])->name('logs.index');
-Route::get('/logs/create', [LogController::class, 'create'])->name('logs.create');
-Route::get('/logs/{log}', [LogController::class, 'show'])->name('logs.show');
-Route::post('/logs/store', [LogController::class, 'store'])->name('logs.store');
-Route::delete('/logs/{log}', [LogController::class, 'destroy'])->name('logs.destroy');
+Route::middleware('guest')->controller(AuthController::class)->group(function() {
+    Route::get('/register/', 'showRegister')->name('show.register');
+    Route::get('/login/', 'showLogin')->name('show.login');
+    Route::post('/register/', 'register')->name('register');
+    Route::post('/login/', 'login')->name('login');
+});
+
+Route::middleware('auth')->controller(LogController::class)->group(function() {
+    Route::get('/logs/', 'index')->name('logs.index');
+    Route::get('/logs/create', 'create')->name('logs.create');
+    Route::get('/logs/{log}', 'show')->name('logs.show');
+    Route::post('/logs/store', 'store')->name('logs.store');
+    Route::delete('/logs/{log}', 'destroy')->name('logs.destroy');
+});

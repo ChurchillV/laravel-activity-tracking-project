@@ -7,6 +7,7 @@
         <title>Log Project</title>
 
         @vite('resources/css/app.css')
+        @vite('resources/js/app.js')
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,6 +37,9 @@
                 <h1 class="ubuntu-bold">Log Project</h1>
                 <a href="{{ route('logs.index') }}">All Logs</a>
                 <a href="{{ route('logs.create') }}">Create Log</a>
+
+                <a href="{{ route('show.login') }}" class="btn">Login</a>
+                <a href="{{ route('show.register') }}" class="btn">Register</a>
             </nav>
         </header>
 

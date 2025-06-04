@@ -21,6 +21,8 @@
       required
     >
 
+    <x-show_password />
+
     <button type="submit" class="btn mt-4">Log in</button>
 
     <!-- validation errors -->

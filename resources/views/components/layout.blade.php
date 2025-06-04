@@ -35,16 +35,23 @@
         <header>
             <nav>
                 <h1 class="ubuntu-bold">Log Project</h1>
-                <a href="{{ route('logs.index') }}">All Logs</a>
-                <a href="{{ route('logs.create') }}">Create Log</a>
+                
+                @guest
+                    <a href="{{ route('show.login') }}" class="btn">Login</a>
+                    <a href="{{ route('show.register') }}" class="btn">Register</a>
+                @endguest
 
-                <a href="{{ route('show.login') }}" class="btn">Login</a>
-                <a href="{{ route('show.register') }}" class="btn">Register</a>
-
-                <form action="{{ route('logout') }}" method="post">
-                    @csrf
-                    <button class="btn">Logout</button>
-                </form>
+                @auth
+                    <a href="{{ route('logs.index') }}">All Logs</a>
+                    <a href="{{ route('logs.create') }}">Create Log</a>
+                    <span class="border-r-2 pr-2">
+                        Hello, {{ Auth::user()->name}}
+                    </span>
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button class="btn">Logout</button>
+                    </form>
+                @endauth
             </nav>
         </header>
 

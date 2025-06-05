@@ -24,7 +24,7 @@
     <button
         id="toggleUpdateBtn"
         type="button"
-        class="btn-info"
+        class="rounded px-3 py-2 bg-blue-200 hover:bg-blue-500 hover:text-white cursor-pointer"
     >
         Update Status
     </button>
@@ -39,6 +39,7 @@
             <div class="mb-2">
                 <label for="status" class="block font-semibold">Status:</label>
                 <select
+                    class="block w-full mt-2 mb-4 p-2 bg-white border border-gray-400 rounded-md"
                     name="status"
                     id="status"
                     class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-red-500"
@@ -49,11 +50,18 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn-info">
+            <button
+                type="submit"
+                class="rounded px-3 py-2 bg-blue-200 hover:bg-blue-500 hover:text-white cursor-pointer"
+            >
                 Update Status
             </button>
 
-            <button type="button" id="cancelUpdateBtn" class="btn-critical">
+            <button
+                type="button"
+                id="cancelUpdateBtn"
+                class="rounded px-3 py-2 bg-red-200 hover:bg-red-500 hover:text-white cursor-pointer"
+            >
                 Cancel
             </button>
         </form>
@@ -80,7 +88,7 @@
     <!-- Toggle Button for Add Remark -->
     <button
         id="toggleRemarkFormBtn"
-        class="btn my-3"
+        class="rounded px-3 py-2 bg-green-200 hover:bg-green-500 hover:text-white cursor-pointer my-3"
     >
         Add a Remark
     </button>
@@ -92,13 +100,23 @@
         <form action="{{ route('logs.remarks.store', $log->id) }}" method="POST" class="space-y-2">
             @csrf
 
-            <textarea name="remark" rows="3" class="w-full border rounded p-2" required></textarea>
+            <textarea
+                name="remark"
+                rows="3"
+                class="w-full block border rounded p-2 bg-white border-gray-400" required></textarea>
 
-            <button type="submit" class="btn">
+            <button
+                type="submit"
+                class="rounded px-3 py-2 bg-green-200 hover:bg-green-500 hover:text-white cursor-pointer"
+            >
                 Add Remark
             </button>
 
-            <button type="button" id="cancelRemarkFormBtn" class="btn-critical">
+            <button
+                type="button"
+                id="cancelRemarkFormBtn"
+                class="rounded px-3 py-2 bg-red-200 hover:bg-red-500 hover:text-white cursor-pointer"
+            >
                 Cancel
             </button>
         </form>
@@ -127,7 +145,9 @@
         @csrf
         @method('DELETE')
 
-        <button type="submit" class="btn-critical">
+        <button
+            type="submit"
+            class="rounded px-3 py-2 bg-red-200 hover:bg-red-500 hover:text-white cursor-pointer">
             Delete Activity
         </button>
     </form>

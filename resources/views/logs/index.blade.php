@@ -7,7 +7,7 @@
         <select
             name="status"
             id="status"
-            class="border p-1 rounded"
+            class="block w-full mt-2 mb-4 p-2 bg-white border border-gray-400 rounded-md"
             onchange="this.form.submit()"
         >
             <option value="">All</option>
@@ -37,7 +37,7 @@
                                     {{ $log->status }}
                                 </x-status>
                             </p>
-                            <p class="subtext">Created by {{ $log->user?->name ?? 'N/A' }}</p>
+                            <p class="text-sm text-gray-500">Created by {{ $log->user?->name ?? 'N/A' }}</p>
                         </div>
 
                         <!-- View details button: full width on mobile, aligned to right on larger screens -->

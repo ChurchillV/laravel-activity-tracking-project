@@ -80,11 +80,11 @@
         </header>
 
 
-<script>
-    document.getElementById('menu-toggle').addEventListener('click', function () {
-        document.getElementById('menu').classList.toggle('hidden');
-    });
-</script>
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            document.getElementById('menu').classList.toggle('hidden');
+        });
+    </script>
 
         <main class="max-w-screen-lg mx-auto px-12 py-8">
             {{ $slot }}

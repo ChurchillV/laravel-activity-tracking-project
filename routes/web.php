@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('landing');
 
 Route::post('/logout/', [AuthController::class, 'logout'])->name('logout');
 
@@ -20,6 +20,8 @@ Route::middleware('guest')->controller(AuthController::class)->group(function() 
 Route::middleware('auth')->controller(LogController::class)->group(function() {
     Route::get('/logs/', 'index')->name('logs.index');
     Route::get('/logs/create', 'create')->name('logs.create');
+    Route::get('/logs/daily', 'dailyLogs')->name('logs.daily');
+    Route::get('/logs/report', 'report')->name('logs.report');
     Route::get('/logs/{activity}', 'show')->name('logs.show');
     Route::post('/logs/store', 'store')->name('logs.store');
     Route::post('/logs/{activity}/remarks', 'addRemark')->name('logs.remarks.store');

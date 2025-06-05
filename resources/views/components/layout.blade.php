@@ -18,28 +18,71 @@
     <body>
         <x-toast />
 
-        <header>
-            <nav>
-                <h1 class="ubuntu-bold">Log Project</h1>
+        <header class="bg-white shadow">
+        <nav class="container mx-auto flex items-center justify-between flex-wrap p-4">
+            <div class="flex items-center flex-shrink-0 text-green-600 mr-6">
+                <h1 class="text-xl font-bold ubuntu-bold">
+                    <a href="{{ route('landing') }}">
+                        Activity Tracker
+                    </a>
+                </h1>
+            </div>
 
-                @guest
-                    <a href="{{ route('show.login') }}" class="btn">Login</a>
-                    <a href="{{ route('show.register') }}" class="btn">Register</a>
-                @endguest
+            <!-- Mobile menu button -->
+            <div class="block md:hidden">
+                <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-green-600 border-green-600 hover:text-green-800 hover:border-green-800">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20">
+                        <title>Menu</title>
+                        <path d="M0 3h20v2H0zM0 9h20v2H0zM0 15h20v2H0z"/>
+                    </svg>
+                </button>
+            </div>
 
-                @auth
-                    <a href="{{ route('logs.index') }}">Activities</a>
-                    <a href="{{ route('logs.create') }}" class="btn">Create</a>
-                    <span class="border-r-2 pr-2">
-                        Hello, {{ Auth::user()->name}}
-                    </span>
-                    <form action="{{ route('logout') }}" method="post">
-                        @csrf
-                        <button class="btn-critical">Logout</button>
-                    </form>
-                @endauth
+            <!-- Menu items -->
+            <div id="menu" class="w-full flex-grow md:flex md:items-center md:w-auto hidden">
+                <div class="text-sm md:flex-grow">
+                    @guest
+                        <a href="{{ route('show.login') }}" class="block mt-2 md:inline-block md:mt-0 text-green-600 hover:text-green-800 mr-4">
+                            Login
+                        </a>
+                        <a href="{{ route('show.register') }}" class="block mt-2 md:inline-block md:mt-0 text-green-600 hover:text-green-800 mr-4">
+                            Register
+                        </a>
+                    @endguest
+
+                    @auth
+                        <a href="{{ route('logs.index') }}" class="block mt-2 md:inline-block md:mt-0 text-green-600 hover:text-green-800 mr-4">
+                            All Activities
+                        </a>
+                        <a href="{{ route('logs.daily') }}" class="block mt-2 md:inline-block md:mt-0 text-green-600 hover:text-green-800 mr-4">
+                            Daily Updates
+                        </a>
+                        <a href="{{ route('logs.report') }}" class="block mt-2 md:inline-block md:mt-0 text-green-600 hover:text-green-800 mr-4">
+                            Reports
+                        </a>
+                        <a href="{{ route('logs.create') }}" class="block mt-2 md:inline-block md:mt-0 bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 mr-4">
+                            Create
+                        </a>
+                        <form action="{{ route('logout') }}" method="post" class="inline-block">
+                            @csrf
+                            <button class="block mt-2 md:inline-block md:mt-0 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 mr-4">
+                                Logout
+                            </button>
+                        </form>
+                        <span class="inline-block rounded-full bg-green-100 text-green-600 px-2 text-center font-bold">
+                            {{ substr(Auth::user()->name, 0, 1)}}
+                        </span>
+                    @endauth
+                    </div>
+                </div>
             </nav>
         </header>
+
+<script>
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+        document.getElementById('menu').classList.toggle('hidden');
+    });
+</script>
 
         <main class="container">
             {{ $slot }}

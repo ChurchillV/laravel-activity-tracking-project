@@ -7,6 +7,11 @@
     'highlight-pending' => $highlight_pending,
     'highlight-done' => $highlight_done,
     'card'])>
-    {{ $slot }}
-    <a href="{{ $attributes->get('href') }}" class="btn">View details</a>
+    <div>
+        {{ $slot }}
+    </div>
+
+    <div class="mt-2 md:mt-0">
+        <a href="{{ $attributes->get('href') }}" class="btn text-center md:flex w-fit">View details</a>
+    </div>
 </div>

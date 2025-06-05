@@ -1,4 +1,12 @@
 <x-layout>
+    <a href="{{ route('logs.index')}}" class="inline-flex items-center text-blue-600 hover:text-blue-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd"
+              d="M10 18a1 1 0 01-.707-.293l-7-7a1 1 0 010-1.414l7-7a1 1 0 011.414 1.414L4.414 10l6.293 6.293A1 1 0 0110 18z"
+              clip-rule="evenodd" />
+        </svg>
+        Back
+    </a>
     <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ $log->name }}</h2>
 
     <div class="bg-gray-100 p-4 rounded shadow mb-4">

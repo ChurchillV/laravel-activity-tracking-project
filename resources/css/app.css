@@ -55,7 +55,7 @@ input, select, textarea {
   @apply max-w-screen-lg mx-auto px-12 py-8;
 }
 .card {
-  @apply bg-white rounded border border-gray-200 px-3 py-3 my-2 flex justify-between items-center;
+  @apply bg-white rounded border border-gray-200 px-3 py-3 my-2 flex flex-col md:flex-row md:justify-between items-start;
 }
 .highlight-todo {
   @apply border-l-4 border-l-red-500;
@@ -88,5 +88,8 @@ input, select, textarea {
   @apply rounded px-3 py-2 bg-blue-200 hover:bg-blue-500 hover:text-white cursor-pointer;
 }
 .subtext {
-    @apply text-sm text-gray-500
+    @apply text-sm text-gray-500;
+}
+.link {
+    @apply hover:underline;
 }

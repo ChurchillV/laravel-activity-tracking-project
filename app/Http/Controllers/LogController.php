@@ -9,13 +9,18 @@ use Illuminate\Support\Facades\Auth;
 
 class LogController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         /**
          * @route -> /logs/
          * @desc -> returns all logs
          */
+        $query = Activity::query()->with('user');
 
-         $logs = Activity::with('user')->orderBy('created_at', 'desc')->paginate(10);
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+         $logs = $query->orderBy('created_at', 'desc')->paginate(10);
 
         return view('logs.index', ["logs" => $logs]);
     }
@@ -96,7 +101,6 @@ class LogController extends Controller
                         ->with('success', 'Activity updated successfully and action logged.');
     }
 
-    // In ActivityController.php
     public function addRemark(Request $request, Activity $activity)
     {
         $request->validate([
@@ -112,4 +116,39 @@ class LogController extends Controller
         return redirect()->route('logs.show', $activity->id)
                         ->with('success', 'Remark added successfully!');
     }
+
+    public function dailyLogs(Request $request) {
+        // Fetch actions grouped by date
+        $actions = Action::with(['activity', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->groupBy(function ($action) {
+                return $action->created_at->format('Y-m-d');
+            });
+
+        return view('logs.daily', [
+            'actionsGroupedByDate' => $actions
+        ]);
+    }
+
+    public function report(Request $request) {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $query = \App\Models\Action::with(['activity', 'user'])
+            ->orderBy('created_at', 'desc');
+
+        if ($startDate && $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $actions = $query->get();
+
+        return view('logs.report', [
+            'actions' => $actions,
+            'start_date' => $startDate,
+            'end_date' => $endDate
+        ]);
+    }
+
 }

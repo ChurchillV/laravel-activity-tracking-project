@@ -16,21 +16,6 @@
     </head>
 
     <body>
-        {{-- @if(session('success'))
-            <div id="flash" class="p-4 text-center bg-green-50 text-green-500 font-bold">
-                {{ session('success')}}
-            </div>
-
-            <script>
-                setTimeout(function() {
-                    const flash = document.getElementById('flash');
-                    if (flash) {
-                        flash.style.display = 'none';
-                    }
-                }, 3000);
-            </script>
-
-        @endif --}}
         <x-toast />
 
         <header>
@@ -43,14 +28,14 @@
                 @endguest
 
                 @auth
-                    <a href="{{ route('logs.index') }}">All Logs</a>
-                    <a href="{{ route('logs.create') }}">Create Log</a>
+                    <a href="{{ route('logs.index') }}">Activities</a>
+                    <a href="{{ route('logs.create') }}" class="btn">Create</a>
                     <span class="border-r-2 pr-2">
                         Hello, {{ Auth::user()->name}}
                     </span>
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
-                        <button class="btn">Logout</button>
+                        <button class="btn-critical">Logout</button>
                     </form>
                 @endauth
             </nav>

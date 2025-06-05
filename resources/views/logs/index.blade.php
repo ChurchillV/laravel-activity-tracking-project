@@ -10,7 +10,9 @@
                     >
                     <div>
                         <p>
-                            <span class="title">{{ $log['name']}}</span>
+                            <a href="{{ route('logs.show', $log) }}" class="">
+                                <span class="title">{{ $log['name']}}</span>
+                            </a>
                             <x-status
                                 :status_pending="($log['status'] == 'Pending')"
                                 :status_done="($log['status'] == 'Done')"

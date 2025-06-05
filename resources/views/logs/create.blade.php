@@ -3,15 +3,14 @@
 @endphp
 
 <x-layout>
-    <h1>
-        Create New Acticity
+    <h1 class="mb-3">
+        Create New Activity
     </h1>
 
     <form action="{{ route('logs.store') }}" method="POST">
         <!-- CSRF token for security -->
         @csrf
 
-        {{-- <h2>Create a New Activity</h2> --}}
 
         <!-- Name -->
         <label for="name">Name:</label>

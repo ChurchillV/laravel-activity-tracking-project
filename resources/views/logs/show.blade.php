@@ -16,7 +16,7 @@
     <button
         id="toggleUpdateBtn"
         type="button"
-        class="btn"
+        class="btn-info"
     >
         Update Status
     </button>
@@ -41,24 +41,32 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn">
+            <button type="submit" class="btn-info">
                 Update Status
+            </button>
+
+            <button type="button" id="cancelUpdateBtn" class="btn-critical">
+                Cancel
             </button>
         </form>
     </div>
 
     {{-- Remarks section --}}
-    <h3 class="text-xl font-bold mt-6">Remarks</h3>
+    <h3 class="text-xl font-bold mt-10">Remarks</h3>
     <div class="space-y-2 mt-2">
-        @foreach ($log->remarks as $remark)
-            <div class="max-w-md p-2 ps-2 bg-gray-300 rounded shadow relative">
-                <p class="text-gray-800">{{ $remark->remark }}</p>
-                <div class="text-xs text-gray-500 text-right mt-1">
-                    - {{ $remark->user->name ?? 'Unknown' }},
-                    {{ $remark->created_at->format('M d, Y H:i') }}
+        @if($log->remarks->isEmpty())
+            <p class="text-gray-500 italic">No remarks yet.</p>
+        @else
+            @foreach ($log->remarks as $remark)
+                <div class="max-w-md p-2 ps-2 bg-gray-300 rounded shadow relative">
+                    <p class="text-gray-800">{{ $remark->remark }}</p>
+                    <div class="text-xs text-gray-500 text-right mt-1">
+                        - {{ $remark->user->name ?? 'Unknown' }},
+                        {{ $remark->created_at->format('M d, Y H:i') }}
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        @endif
     </div>
 
     <!-- Toggle Button for Add Remark -->
@@ -70,7 +78,7 @@
     </button>
 
     <!-- Add Remark Form (initially hidden) -->
-    <div id="remarkForm" class="mt-4 hidden">
+    <div id="remarkForm" class="mt-4 hidden relative">
         <h3 class="text-lg font-semibold mb-2">Add a Remark</h3>
 
         <form action="{{ route('logs.remarks.store', $log->id) }}" method="POST" class="space-y-2">
@@ -81,29 +89,37 @@
             <button type="submit" class="btn">
                 Add Remark
             </button>
+
+            <button type="button" id="cancelRemarkFormBtn" class="btn-critical">
+                Cancel
+            </button>
         </form>
     </div>
 
     {{-- Actions history --}}
-    <h3 class="text-xl font-bold mt-4">Actions</h3>
-    <ul>
-        @foreach ($log->actions as $action)
-            <li class="my-2">
-                <strong>{{ $action->created_at->format('M d, Y H:i') }}</strong>:
-                {{ $action->action }} by
-                <span class="text-blue-500 font-semibold">
-                    {{ $action->user->name ?? 'Unknown User' }}
-                </span>
-            </li>
-        @endforeach
-    </ul>
+    <h3 class="text-xl font-bold mt-8">Actions</h3>
+    @if($log->actions->isEmpty())
+        <p class="text-gray-500 italic">No actions yet.</p>
+    @else
+        <ul>
+            @foreach ($log->actions as $action)
+                <li class="my-2">
+                    <strong>{{ $action->created_at->format('M d, Y H:i') }}</strong>:
+                    {{ $action->action }} by
+                    <span class="text-blue-500 font-semibold">
+                        {{ $action->user->name ?? 'Unknown User' }}
+                    </span>
+                </li>
+            @endforeach
+        </ul>
+    @endif
 
     {{-- Delete Form --}}
     <form action="{{ route('logs.destroy', $log->id) }}" method="POST" class="mt-4">
         @csrf
         @method('DELETE')
 
-        <button type="submit" class="btn">
+        <button type="submit" class="btn-critical">
             Delete Activity
         </button>
     </form>
@@ -112,18 +128,31 @@
     <x-errors />
 
     <script>
-        document.getElementById('toggleUpdateBtn').addEventListener('click', function() {
+        document.getElementById('toggleUpdateBtn').addEventListener('click', function(event) {
+            event.preventDefault();
             const formContainer = document.getElementById('updateFormContainer');
             formContainer.classList.toggle('hidden');
+        });
+
+        document.getElementById('cancelUpdateBtn').addEventListener('click', function(event) {
+            event.preventDefault();
+            const formContainer = document.getElementById('updateFormContainer');
+            formContainer.classList.add('hidden');
         });
 
         document.addEventListener('DOMContentLoaded', function () {
         const toggleBtn = document.getElementById('toggleRemarkFormBtn');
         const remarkForm = document.getElementById('remarkForm');
 
-        toggleBtn.addEventListener('click', function () {
+        toggleBtn.addEventListener('click', function (event) {
+            event.preventDefault();
             remarkForm.classList.toggle('hidden');
         });
-    });
+
+        document.getElementById('cancelRemarkFormBtn').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('remarkForm').classList.add('hidden');
+        });
+        });
     </script>
 </x-layout>

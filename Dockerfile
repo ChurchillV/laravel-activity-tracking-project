@@ -98,7 +98,7 @@ COPY --from=node-builder /app/public/build /var/www/html/public/build
 RUN composer install --no-dev --prefer-dist --optimize-autoloader
 
 # Generate app key (if not already present)
-RUN php artisan key:generate --force
+# RUN php artisan key:generate --force
 
 # Laravel optimization commands
 RUN php artisan config:cache \

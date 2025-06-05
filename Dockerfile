@@ -94,9 +94,6 @@ COPY . .
 # Copy built Vite assets
 COPY --from=node-builder /app/public/build /var/www/html/public/build
 
-# Copy .env (this is important!)
-COPY .env /var/www/html/.env
-
 # Install Composer dependencies
 RUN composer install --no-dev --prefer-dist --optimize-autoloader
 

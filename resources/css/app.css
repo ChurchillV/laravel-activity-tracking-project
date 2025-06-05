@@ -60,7 +60,7 @@ input, select, textarea {
 .highlight-todo {
   @apply border-l-4 border-l-red-500;
 }
-.highlight-in-progress {
+.highlight-pending {
   @apply border-l-4 border-l-blue-500;
 }
 .highlight-done {
@@ -72,7 +72,7 @@ input, select, textarea {
 .status-done {
     @apply bg-green-100 text-green-500;
 }
-.status-in-progress {
+.status-pending {
     @apply bg-blue-100 text-blue-500;
 }
 .status-todo {

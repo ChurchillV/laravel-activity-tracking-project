@@ -1,12 +1,10 @@
 @props([
-    'status_todo' => false,
     'status_done' => false,
-    'status_in_progress' => false
+    'status_pending' => false
 ])
 
 <span @class([
-    'status-todo' => $status_todo,
-    'status-in-progress' => $status_in_progress,
+    'status-pending' => $status_pending,
     'status-done' => $status_done,
     'status'])>
     {{ $slot }}

@@ -1,12 +1,10 @@
 @props([
-    'highlight_todo' => false,
     'highlight_done' => false,
-    'highlight_in_progress' => false
+    'highlight_pending' => false
 ])
 
 <div @class([
-    'highlight-todo' => $highlight_todo,
-    'highlight-in-progress' => $highlight_in_progress,
+    'highlight-pending' => $highlight_pending,
     'highlight-done' => $highlight_done,
     'card'])>
     {{ $slot }}

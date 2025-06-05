@@ -5,16 +5,14 @@
                 <li>
                    <x-card
                         href="{{ route('logs.show', $log->id) }}"
-                        :highlight_todo="($log['status'] == 'To do')"
-                        :highlight_in_progress="($log['status'] == 'In Progress')"
                         :highlight_done="($log['status'] == 'Done')"
+                        :highlight_pending="($log['status'] == 'Pending')"
                     >
                     <div>
                         <p>
-                            <span class="title">{{ $log['title']}}</span>
+                            <span class="title">{{ $log['name']}}</span>
                             <x-status
-                                :status_todo="($log['status'] == 'To do')"
-                                :status_in_progress="($log['status'] == 'In Progress')"
+                                :status_pending="($log['status'] == 'Pending')"
                                 :status_done="($log['status'] == 'Done')"
                             >
                                 {{$log->status}}

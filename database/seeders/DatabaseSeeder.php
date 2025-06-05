@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             // UserSeeder::class,
-            LogSeeder::class,
+            // LogSeeder::class,
+            // ActivitySeeder::class
+            RemarksSeeder::class
         ]);
     }
 }

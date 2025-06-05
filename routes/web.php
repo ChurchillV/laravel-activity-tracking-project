@@ -20,7 +20,9 @@ Route::middleware('guest')->controller(AuthController::class)->group(function() 
 Route::middleware('auth')->controller(LogController::class)->group(function() {
     Route::get('/logs/', 'index')->name('logs.index');
     Route::get('/logs/create', 'create')->name('logs.create');
-    Route::get('/logs/{log}', 'show')->name('logs.show');
+    Route::get('/logs/{activity}', 'show')->name('logs.show');
     Route::post('/logs/store', 'store')->name('logs.store');
-    Route::delete('/logs/{log}', 'destroy')->name('logs.destroy');
+    Route::post('/logs/{activity}/remarks', 'addRemark')->name('logs.remarks.store');
+    Route::put('/logs/{activity}', 'update')->name('logs.update');
+    Route::delete('/logs/{activity}', 'destroy')->name('logs.destroy');
 });

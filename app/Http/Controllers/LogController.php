@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Log;
+use App\Models\Action;
+use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LogController extends Controller
 {
@@ -13,18 +15,20 @@ class LogController extends Controller
          * @desc -> returns all logs
          */
 
-         $logs = Log::with('user')->orderBy('created_at', 'desc')->paginate(10);
+         $logs = Activity::with('user')->orderBy('created_at', 'desc')->paginate(10);
 
         return view('logs.index', ["logs" => $logs]);
     }
 
-    public function show(Log $log) {
+    public function show(Activity $activity) {
         /**
          * @route -> /logs/{id}
          * @desc -> returns log by ID
          */
 
-         return view('logs.show', ["log" => $log]);
+         $activity->load('user', 'actions.user', 'remarks.user');
+
+         return view('logs.show', ["log" => $activity]);
     }
 
     public function create() {
@@ -45,20 +49,18 @@ class LogController extends Controller
          */
 
          $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string|max:300|min:10',
+            'name' => 'required|string|max:255',
             'status' => 'required|string',
-            'created_by' => 'required|integer'
          ]);
 
-         $validated['created_by'] = 1;
+         $validated['created_by'] = Auth::user()->id;
 
-         Log::create($validated);
+         Activity::create($validated);
 
-         return redirect()->route('logs.index')->with('success', 'Log created successfully');
+         return redirect()->route('logs.index')->with('success', 'Activity created successfully');
     }
 
-    public function destroy(Log $log) {
+    public function destroy(Activity $log) {
         /**
          * @route -> /logs/{id}
          * @desc -> delete a log
@@ -66,6 +68,48 @@ class LogController extends Controller
 
         $log->delete();
 
-        return redirect()->route('logs.index')->with('success', 'Log deleted successfully');
+        return redirect()->route('logs.index')->with('success', 'Activity deleted successfully');
+    }
+
+    public function update(Request $request, Activity $activity) {
+        /**
+         * @route -> /logs/{id}
+         * @desc -> update a log and record the action
+         */
+
+        // Validate request
+        $validated = $request->validate([
+            'status' => 'required|string',
+        ]);
+
+        // Update the activity
+        $activity->update($validated);
+
+        // Create an action record
+        Action::create([
+            'activity_id' => $activity->id,
+            'user_id' => Auth::id(),
+            'action' => "Activity status Updated",
+        ]);
+
+        return redirect()->route('logs.show', $activity->id)
+                        ->with('success', 'Activity updated successfully and action logged.');
+    }
+
+    // In ActivityController.php
+    public function addRemark(Request $request, Activity $activity)
+    {
+        $request->validate([
+            'remark' => 'required|string|max:500'
+        ]);
+
+        $activity->remarks()->create([
+            'remark' => $request->input('remark'),
+            'created_by' => Auth::id(),
+            'activity_id' => $activity->id
+        ]);
+
+        return redirect()->route('logs.show', $activity->id)
+                        ->with('success', 'Remark added successfully!');
     }
 }

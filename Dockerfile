@@ -50,4 +50,10 @@ ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
+
+# Run artisan commands for optimization
+RUN php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
+
 CMD ["/start.sh"]

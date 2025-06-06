@@ -67,14 +67,14 @@
             <div id="menu" class="w-full flex-grow md:flex md:items-center md:justify-end md:w-auto hidden mt-4 md:mt-0 space-y-2 md:space-y-0 md:space-x-4">
                 <div class="space-x-4">
                     @auth
-                        <a href="{{ route('logs.index') }}" class="text-green-600 font-semibold hover:underline">Dashboard</a>
+                        <a href="{{ route('logs.index') }}" class="inline-block px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">Dashboard</a>
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
-                            <button type="submit" class="text-red-600 font-semibold hover:underline">Logout</button>
+                            <button type="submit" class="inline-block px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">Logout</button>
                         </form>
                     @else
-                        <a href="{{ route('login') }}" class="text-green-600 font-semibold hover:underline">Login</a>
-                        <a href="{{ route('register') }}" class="text-green-600 font-semibold hover:underline">Register</a>
+                        <a href="{{ route('login') }}" class="inline-block px-4 py-2 border border-green-500 text-green-500 rounded hover:bg-green-600 hover:text-white transition">Login</a>
+                        <a href="{{ route('register') }}" class="inline-block px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">Register</a>
                 </div>
             @endauth
         </div>
